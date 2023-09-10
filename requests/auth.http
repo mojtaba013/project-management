@@ -1,0 +1,11 @@
+
+ post  http://localhost:3000/auth/register 
+Content-Type: application/json
+
+{
+    "username":"mojtaba",
+    "email":"kahroba013@yahoo.com",
+    "mobile":"09398516343",
+    "password":"123456789",
+    "confirm_password":"123456789"
+}
