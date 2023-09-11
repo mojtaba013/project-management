@@ -4,10 +4,10 @@ module.exports = class Application {
   #express = require("express");
   #app = this.#express();
   constructor(PORT, DB_URL) {
-    this.configDatebase(DB_URL);
+    this.configDatabase(DB_URL);
     this.configApplication();
-    this.createServer(PORT);
     this.createRoutes();
+    this.createServer(PORT);
     this.errorHandler();
   }
   configApplication() {
@@ -23,12 +23,9 @@ module.exports = class Application {
       console.log(`server run on http://localhost:${PORT}`);
     });
   }
-  configDatebase(DB_URL) {
+  configDatabase(DB_URL) {
     const mongoose = require("mongoose");
-    mongoose.connect(DB_URL, (error) => {
-      if (error) throw error;
-      return console.log("connect to database successfull...");
-    });
+    mongoose.connect(DB_URL).catch((err) => console.log(err));
   }
   createRoutes() {
     this.#app.get("/", (req, res, next) => {
@@ -37,7 +34,7 @@ module.exports = class Application {
     this.#app.use(AllRoutes);
     // this.#app.use((req, res, next) => {
     //   try {
-        
+
     //   } catch (error) {
     //     next(error);
     //   }
