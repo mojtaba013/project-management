@@ -25,7 +25,10 @@ module.exports = class Application {
   }
   configDatabase(DB_URL) {
     const mongoose = require("mongoose");
-    mongoose.connect(DB_URL).catch((err) => console.log(err));
+    mongoose
+      .connect(DB_URL)
+      .then((msg) => console.log("connect to database successfully"))
+      .catch((err) => console.log(err));
   }
   createRoutes() {
     this.#app.get("/", (req, res, next) => {
