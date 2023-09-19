@@ -57,7 +57,7 @@ module.exports = class Application {
       return res.status(status).json({
         status,
         success: false,
-        message: "صفحه با آدرس مورد نظر پیدا نشد",
+        message: error,
       });
     });
   }
