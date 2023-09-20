@@ -16,9 +16,7 @@ class ProjectController {
       return res
         .status(201)
         .json({ message: "ثبت پروژه جدید با موفقیت انجام شد" });
-    } catch (error) {
-      next(error);
-    }
+    } catch (error) {}
   }
 
   async getAllProject(req, res, next) {
@@ -34,42 +32,20 @@ class ProjectController {
     }
   }
 
-  async findProject(projectId, owner) {
-    const project = await ProjectModel.findOne({ owner, _id: projectID });
-    if (!project) throw { status: 404, message: "پروژه ای یافت نشد" };
-    return project;
-  }
-
   async getProjectById(req, res, next) {
     const owner = req.user._id;
     const projectID = req.params.id;
-    const project = await this.findProject(projectID, owner);
+    const project = await ProjectModel.findOne({ owner, _id: projectID });
+    if (!project) throw { status: 404, message: "پروژه ای یافت نشد" };
     return res.status(200).json({
       success: true,
       project,
     });
   }
 
-  async removeProject(req, res, next) {
-    try {
-      const owner = req.user._id;
-      const projectID = req.params.id;
-       await this.findProject(projectID, owner);
-       const deleteProjectResult=await ProjectModel.deleteOne({_id:projectID})
-       if(deleteProjectResult.deletedCount===0)throw {message:"پروژه حذف نشد"}
-       return res.status(200).json({
-        success:true,
-        message:"حذف با موفقیت انجام شد"
-       })
-    } catch (error) {
-      next(error)
-    }
-  }
   getAllProjetOfTeam() {}
   getProjectOfUser() {}
   updateProject() {}
+  removeProject() {}
 }
-
-module.exports = {
-  ProjectController: new ProjectController(),
-};
+exports.ProjectController = ProjectController;
