@@ -1,0 +1,49 @@
+### create team
+POST http://localhost:3000/team/create
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+{
+    "name":"team 2",
+    "description":"front",
+    "username":"m353"
+}
+
+### get all teams
+GET  http://localhost:3000/team/list
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+### get team by id
+GET  http://localhost:3000/team/650c5af8a33a012dd856b4e1
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+### get myteam by id
+GET  http://localhost:3000/team/me
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+### delete team
+DELETE   http://localhost:3000/team/remove/650c5af8a33a012dd856b4e1
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+### edit team
+PUT    http://localhost:3000/team/edit/
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+{
+    "title":"",
+    "text":"",
+    "tags":["",""]
+
+
+}
+
+
+### invite user to team
+GET   http://localhost:3000/team/invite/650c5e28878472474da428b8/m013
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json

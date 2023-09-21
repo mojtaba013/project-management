@@ -7,3 +7,31 @@ Content-Type: application/json
     "title":"title of new project",
     "text":"text of new project asfdafasdfsdssf"
 }
+
+### get all projects
+GET  http://localhost:3000/project/list
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+### get project by id
+GET  http://localhost:3000/project/650b00988937d4a41fb3e601
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+### delete project
+DELETE   http://localhost:3000/project/remove/650b00988937d4a41fb3e601
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+### edit project
+PUT    http://localhost:3000/project/edit/650b40cd5d7a87c0ed3c256c
+Authorization: Bearer {{$dotenv token}}
+Content-Type: application/json
+
+{
+    "title":"",
+    "text":"",
+    "tags":["",""]
+
+
+}

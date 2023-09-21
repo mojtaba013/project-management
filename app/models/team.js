@@ -3,10 +3,11 @@ const TeamSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     description: { type: String },
-    users: { type: [mongoose.Type.ObjectId], default: [] },
-    owner: { type: mongoose.Type.ObjectId, required: true },
+    username: { type: String, required: true, unique: true },
+    users: { type: [mongoose.Types.ObjectId], default: [] },
+    owner: { type: mongoose.Types.ObjectId, required: true },
   },
   { timestamps: true }
 );
-const TeamModel = mongoose.model("team", userSchema);
-module.exports = TeamModel;
+const TeamModel = mongoose.model("team", TeamSchema);
+module.exports = { TeamModel };

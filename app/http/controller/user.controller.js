@@ -1,10 +1,11 @@
 const { userModel } = require("../../models/user");
+const { createLinkForFiles } = require("../../modules/functions");
 
 class UserController {
   getProfile(req, res, next) {
     try {
       const user = req.user;
-      user.profileImage=req.protocol+"://"+req.get("host")+"/"+(user.profileImage.replace(/[\\\\]/gm,"/"))
+      user.profileImage = createLinkForFiles(user.profileImage, req);
       return res.status(200).json({
         success: true,
         user,
@@ -41,7 +42,7 @@ class UserController {
 
   async uploadProfileImage(req, res, next) {
     try {
-      const userID=req.user._id     
+      const userID = req.user._id;
       const filePath = req.file?.path?.substring(7);
       const result = await userModel.updateOne(
         { _id: userID },

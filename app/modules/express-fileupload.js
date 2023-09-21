@@ -7,11 +7,14 @@ const uploadfile = async (req, res, next) => {
     if (req.file || Object.keys(req.files).length == 0)
       throw { status: 400, message: "تصویر پروژه را ارسال کنید" };
     let image = req.files.image;
+    let type = path.extname(image.name);
+    if (![".png", ".jpeg", ".jpg", ".webp", ".gif"].includes(type))
+      throw { message: "فرمت ارسال شده صحیح نمی باشد" };
     const imagePath = path.join(
       createUploadPath(),
-      Date.now + path.extname(image.name)
+      Date.now() + type
     );
-    req.body.image = imagePath;
+    req.body.image = imagePath.substring(7);
     let uploadpath = path.join(__dirname, "..", "..", imagePath);
     image.mv(uploadpath, (err) => {
       if (err) throw { status: 400, message: "بارگذاری تصویر انجام نشد" };

@@ -1,3 +1,4 @@
+const fileUpload = require("express-fileupload");
 const { ProjectController } = require("../http/controller/project.controller");
 const { checkLogin } = require("../http/middlewares/autoLogin");
 const { expressValidatorMapper } = require("../http/middlewares/checkErrors");
@@ -15,27 +16,36 @@ router.post(
   expressValidatorMapper,
   ProjectController.createProject
 );
-router.post("/list", checkLogin, ProjectController.getAllProject);
-router.post(
+router.get("/list", checkLogin, ProjectController.getAllProject);
+router.get(
   "/:id",
   checkLogin,
   mongoIdValidator(),
   expressValidatorMapper,
   ProjectController.getProjectById
 );
-router.post(
+router.delete(
   "/remove/:id",
   checkLogin,
   mongoIdValidator(),
   expressValidatorMapper,
   ProjectController.removeProject
 );
-router.post(
+router.put(
   "/edit/:id",
   checkLogin,
   mongoIdValidator(),
   expressValidatorMapper,
   ProjectController.updateProject
+);
+router.patch(
+  "/edit-projectImage/:id",
+  fileUpload(),
+  checkLogin,
+  uploadfile,
+  mongoIdValidator(),
+  expressValidatorMapper,
+  ProjectController.updateProjectImage
 );
 module.exports = {
   projectRoutes: router,
